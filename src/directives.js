@@ -2,7 +2,7 @@
 /*jshint unused: false*/
 
 angular.module('angular-datepicker', [])
-.directive('pickADate', function() {
+.directive('pickADate', [ '$document', function($document) {
   return {
     restrict: "A",
     scope: {
@@ -57,11 +57,19 @@ angular.module('angular-datepicker', [])
         }
       }
 
+      element.bind('click', function(event) {
+        event.stopPropagation();
+      });
+
+      $document.bind('click', function(){
+        element.pickadate('picker').close();
+      });
+
       element.pickadate(angular.extend(options, {
         onOpen: onOpen,
         onSet: onSet,
         onClose: onClose,
-        container: document.body
+        container: $document.body
       }));
 
       setTimeout(function() {
@@ -71,8 +79,8 @@ angular.module('angular-datepicker', [])
       }, 1000);
     }
   };
-})
-.directive('pickATime', function() {
+}])
+.directive('pickATime', ['$document', function($document) {
   return {
     restrict: "A",
     scope: {
@@ -120,10 +128,18 @@ angular.module('angular-datepicker', [])
         }
       }
 
+      element.bind('click', function(event) {
+        event.stopPropagation();
+      });
+
+      $document.bind('click', function(){
+        element.pickatime('picker').close();
+      });
+
       element.pickatime(angular.extend(options, {
         onSet: onSet,
         onClose: onClose,
-        container: document.body
+        container: $document.body
       }));
 
       setTimeout(function() {
@@ -133,4 +149,4 @@ angular.module('angular-datepicker', [])
       }, 1000);
     }
   };
-});
+}]);
