@@ -1,6 +1,6 @@
 {
   "name": "pp-angular-native-datepicker",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "main": [
     "./build/themes/default.css",
     "./build/themes/default.date.css",
@@ -12,6 +12,6 @@
     "Gruntfile.js"
   ],
   "dependencies": {
-    "angular": "latest"
+    "angular": "1.2.*"
   }
 }
