@@ -350,9 +350,6 @@ function PickerConstructor( ELEMENT, NAME, COMPONENT, OPTIONS ) {
                         // The focus is triggered *after* the close has completed - causing it
                         // to open again. So unbind and rebind the event at the next tick.
                         P.$holder.off( 'focus.toOpen' ).focus()
-                        setTimeout( function() {
-                            P.$holder.on( 'focus.toOpen', handleFocusToOpenEvent )
-                        }, 0 )
                     }
                 }
 
@@ -835,7 +832,7 @@ function PickerConstructor( ELEMENT, NAME, COMPONENT, OPTIONS ) {
         P.$root.addClass( CLASSES.focused )
 
         // And then finally open the picker.
-        P.open()
+        P.open(false)
     }
 
 
