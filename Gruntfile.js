@@ -13,7 +13,6 @@ module.exports = function( grunt ) {
     // Read the package manifest.
     var packageJSON = grunt.file.readJSON( 'package.json' )
 
-
     // Add the “curly” template delimiters.
     grunt.template.addDelimiters( 'curly', '{%', '%}' )
 
@@ -90,11 +89,11 @@ module.exports = function( grunt ) {
             },
             pickers: {
                 src: [ '<%= dirs.min.pickers %>/picker.js', '<%= dirs.min.pickers %>/picker.js', '<%= dirs.min.pickers %>/picker.date.js', '<%= dirs.min.pickers %>/picker.time.js', '<%= dirs.min.pickers %>/legacy.js', '<%= dirs.min.pickers %>/directives.js'],
-                dest: '<%= dirs.min.pickers %>/angular-datepicker.js'
+                dest: '<%= dirs.min.pickers %>/angular-datepicker-<%= pkg.version %>.js'
             },
             devPickers: {
                 src: [ 'src/picker.js', 'src/picker.date.js', 'src/picker.time.js', 'src/legacy.js', 'src/directives.js'],
-                dest: '<%= dirs.min.pickers %>/angular-datepicker.js'
+                dest: '<%= dirs.min.pickers %>/angular-datepicker-<%= pkg.version %>.js'
             }
         },
 
@@ -123,7 +122,7 @@ module.exports = function( grunt ) {
             }
         },
         clean: {
-            pickers: [ '<%= dirs.min.pickers %>/*.js', '!<%= dirs.min.pickers %>/angular-datepicker.js' ],
+          pickers: [ '<%= dirs.min.pickers %>/*.js', '!<%= dirs.min.pickers %>/angular-datepicker-<%= pkg.version %>.js' ],
         },
 
     }) //grunt.initConfig
