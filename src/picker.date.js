@@ -82,10 +82,10 @@ function DatePicker( picker, settings ) {
     // When there’s a value, set the `select`, which in turn
     // also sets the `highlight` and `view`.
     if ( valueString ) {
-        calendar.set( 'select', valueString, {
-            format: formatString,
-            defaultValue: true
-        })
+        calendar.set( 'highlight', valueString, {
+            format: formatString
+        }).
+        set( 'select', null )
     }
 
     // If there’s no value, default to highlighting “today”.
