@@ -1,5 +1,5 @@
 /*!
- * Date picker for pickadate.js v3.5.6
+ * Date picker for pickadate.js v3.6.3
  * http://amsul.github.io/pickadate.js/date.htm
  */
 
@@ -7,7 +7,7 @@
 
     // AMD.
     if ( typeof define == 'function' && define.amd )
-        define( ['picker', 'jquery'], factory )
+        define( ['./picker', 'jquery'], factory )
 
     // Node.js/browserify.
     else if ( typeof exports == 'object' )
@@ -82,10 +82,10 @@ function DatePicker( picker, settings ) {
     // When there’s a value, set the `select`, which in turn
     // also sets the `highlight` and `view`.
     if ( valueString ) {
-        calendar.set( 'highlight', valueString, {
-            format: formatString
-        }).
-        set( 'select', null )
+        calendar.set( 'select', valueString, {
+            format: formatString,
+            defaultValue: true
+        })
     }
 
     // If there’s no value, default to highlighting “today”.
@@ -396,20 +396,20 @@ DatePicker.prototype.normalize = function( value/*, options*/ ) {
 DatePicker.prototype.measure = function( type, value/*, options*/ ) {
 
     var calendar = this
+    
+    // If it's an integer, get a date relative to today.
+    if ( _.isInteger( value ) ) {
+        value = calendar.now( type, value, { rel: value } )
+    }
 
     // If it’s anything false-y, remove the limits.
-    if ( !value ) {
+    else if ( !value ) {
         value = type == 'min' ? -Infinity : Infinity
     }
 
     // If it’s a string, parse it.
     else if ( typeof value == 'string' ) {
         value = calendar.parse( type, value )
-    }
-
-    // If it's an integer, get a date relative to today.
-    else if ( _.isInteger( value ) ) {
-        value = calendar.now( type, value, { rel: value } )
     }
 
     return value
@@ -1298,6 +1298,9 @@ DatePicker.defaults = (function( prefix ) {
         // Picker close behavior
         closeOnSelect: true,
         closeOnClear: true,
+
+        // Update input value on select/clear
+        updateInput: true,
 
         // The format to show on the `input` element
         format: 'd mmmm, yyyy',
